@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable, of, map, catchError, BehaviorSubject } from 'rxjs';
 import { Model, ModelColor } from '../../_models/models.model';
 import { ApiService } from '../api/api.service';
+import { Step } from '../../_models/steps.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralService {
+
+  private stepsSubject: BehaviorSubject<Array<Step>> = new BehaviorSubject<Array<Step>>([]);
+  public steps$: Observable<Array<Step>> = this.stepsSubject.asObservable();
 
   private teslaModelsSubject: BehaviorSubject<Array<Model>> = new BehaviorSubject<Array<Model>>([]);
   public teslaModels$: Observable<Array<Model>> = this.teslaModelsSubject.asObservable();
@@ -16,7 +20,25 @@ export class GeneralService {
 
   constructor(
     private apiService: ApiService
-  ) { }
+  ) {
+    this.stepsSubject.next([
+      {
+        id: 'step1',
+        text: 'Step 1',
+        valid: true
+      },
+      {
+        id: 'step2',
+        text: 'Step 2',
+        valid: false
+      },
+      {
+        id: 'step3',
+        text: 'Step 3',
+        valid: false
+      }
+    ]);
+  }
 
   public getModels(): Observable<Array<Model>> {
     return this.apiService.get<Array<Model>>('/models').pipe(
@@ -30,6 +52,10 @@ export class GeneralService {
         return [];
       })
     );
+  }
+
+  public get steps(): Array<Step> {
+    return this.stepsSubject.value;
   }
 
   public get models(): Array<Model> {

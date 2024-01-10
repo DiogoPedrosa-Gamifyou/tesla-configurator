@@ -26,6 +26,18 @@ export class Step1Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.form.controls['model'].setValue(this.generalService.selectedModel?.code ?? '');
+    this.form.controls['color'].setValue(this.generalService.selectedModelColor?.code ?? '');
+
+    this.subscribeInputChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.next(true);
+    this.destroy.complete();
+  }
+
+  private subscribeInputChanges(): void {
     this.form.controls['model'].valueChanges.pipe(takeUntil(this.destroy)).subscribe((value) => {
       this.generalService.setSelectedModel(value);
 
@@ -38,10 +50,13 @@ export class Step1Component implements OnInit {
     this.form.controls['color'].valueChanges.pipe(takeUntil(this.destroy)).subscribe((value) => {
       this.generalService.setSelectedModelColor(value);
     });
+
+    this.form.statusChanges.pipe(takeUntil(this.destroy)).subscribe(() => {
+      this.validateStep();
+    })
   }
 
-  ngOnDestroy(): void {
-    this.destroy.next(true);
-    this.destroy.complete();
+  private validateStep(): void {
+    this.generalService.steps[1].valid = this.form.valid;
   }
 }

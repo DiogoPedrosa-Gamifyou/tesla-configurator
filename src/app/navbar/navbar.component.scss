@@ -1,0 +1,18 @@
+.navigation {
+  width: 100vw;
+  height: 10vh;
+
+  button {
+    margin: 0;
+    height: 100%;
+    border-color: grey;
+
+    &.active {
+      opacity: 0.3;
+    }
+
+    &:focus {
+      background: var(--button-back-color);
+    }
+  }
+}

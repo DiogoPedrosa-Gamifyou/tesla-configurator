@@ -1,1 +1,8 @@
-<p>navbar works!</p>
+<div class="navigation" *ngIf="steps">
+  <ng-container *ngFor="let step of steps; count as count">
+    <button [ngStyle]="{'width': 100 / count + '%'}"
+      [routerLink]="step.id" [routerLinkActive]="'active'" [disabled]="!step.valid">
+      {{ step.text }}
+    </button>
+  </ng-container>
+</div>
