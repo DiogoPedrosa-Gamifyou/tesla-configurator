@@ -57,6 +57,6 @@ export class Step1Component implements OnInit {
   }
 
   private validateStep(): void {
-    this.generalService.steps[1].valid = this.form.valid;
+    this.generalService.steps[0].valid = this.form.valid;
   }
 }

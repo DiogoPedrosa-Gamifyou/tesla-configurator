@@ -9,3 +9,7 @@ export interface ModelColor {
   description: string;
   price: number;
 }
+
+export interface ModelOptions {
+  // TODO
+}

@@ -5,13 +5,17 @@
   button {
     margin: 0;
     height: 100%;
-    border-color: grey;
+    border-color: #aaa;
 
     &.active {
       opacity: 0.3;
     }
 
     &:focus {
+      background: var(--button-back-color);
+    }
+
+    &:disabled:hover {
       background: var(--button-back-color);
     }
   }

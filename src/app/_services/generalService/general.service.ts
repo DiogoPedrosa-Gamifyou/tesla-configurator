@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, map, catchError, BehaviorSubject } from 'rxjs';
-import { Model, ModelColor } from '../../_models/models.model';
+import { Model, ModelColor, ModelOptions } from '../../_models/models.model';
 import { ApiService } from '../api/api.service';
 import { Step } from '../../_models/steps.model';
 
@@ -15,6 +15,9 @@ export class GeneralService {
   private teslaModelsSubject: BehaviorSubject<Array<Model>> = new BehaviorSubject<Array<Model>>([]);
   public teslaModels$: Observable<Array<Model>> = this.teslaModelsSubject.asObservable();
 
+  private teslaModelOptionsSubject: BehaviorSubject<Array<ModelOptions>> = new BehaviorSubject<Array<ModelOptions>>([]);
+  public teslaModelOptions$: Observable<Array<ModelOptions>> = this.teslaModelOptionsSubject.asObservable();
+
   private selectedTeslaModel: Model | undefined;
   private selectedTeslaModelColor: ModelColor | undefined;
 
@@ -25,7 +28,7 @@ export class GeneralService {
       {
         id: 'step1',
         text: 'Step 1',
-        valid: true
+        valid: false
       },
       {
         id: 'step2',
@@ -54,12 +57,30 @@ export class GeneralService {
     );
   }
 
+  public getOptions(): Observable<Array<ModelOptions>> {
+    return this.apiService.get<Array<ModelOptions>>(`/options/${this.selectedModel?.code}`).pipe(
+      map((response: Array<ModelOptions>) => {
+
+        this.teslaModelOptionsSubject.next(response);
+
+        return response ?? [];
+      }),
+      catchError((err) => {
+        return [];
+      })
+    );
+  }
+
   public get steps(): Array<Step> {
     return this.stepsSubject.value;
   }
 
   public get models(): Array<Model> {
     return this.teslaModelsSubject.value;
+  }
+
+  public get modelOptions(): Array<ModelOptions> {
+    return this.teslaModelOptionsSubject.value;
   }
 
   public get selectedModel(): Model | undefined {
@@ -76,5 +97,10 @@ export class GeneralService {
 
   public setSelectedModelColor(selectedCode: string | null): void {
     this.selectedTeslaModelColor = this.selectedTeslaModel?.colors.find(color => color.code === selectedCode);
+  }
+
+  public checkStepValidity(stepIndex: number): boolean {
+    debugger;
+    return this.steps[stepIndex - 1 > 0 ? stepIndex - 1: stepIndex].valid;
   }
 }

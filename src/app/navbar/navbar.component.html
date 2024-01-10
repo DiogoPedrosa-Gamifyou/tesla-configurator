@@ -1,7 +1,7 @@
 <div class="navigation" *ngIf="steps">
-  <ng-container *ngFor="let step of steps; count as count">
-    <button [ngStyle]="{'width': 100 / count + '%'}"
-      [routerLink]="step.id" [routerLinkActive]="'active'" [disabled]="!step.valid">
+  <ng-container *ngFor="let step of steps; index as index; count as count">
+    <button [attr.ID]="step.id" [ngStyle]="{'width': 100 / count + '%'}"
+      [routerLink]="step.id" [routerLinkActive]="'active'" [disabled]="index > 0 && !steps[index - 1].valid">
       {{ step.text }}
     </button>
   </ng-container>
