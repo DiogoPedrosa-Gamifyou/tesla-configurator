@@ -1,0 +1,21 @@
+<ng-container *ngIf="generalService.teslaModels$ | async as models">
+  <form [formGroup]="form">
+    <label>Model:</label>
+    <select [formControlName]="'model'">
+      <option [value]="''" selected>Choose a model</option>
+      <option *ngFor="let model of models" [value]="model.code">
+        {{ model.code }}
+      </option>
+    </select>
+
+    <ng-container *ngIf="generalService.selectedModel">
+      <label>Color:</label>
+      <select [formControlName]="'color'" placeholder="Choose a color">
+        <option [value]="''" selected>Choose a color</option>
+        <option *ngFor="let color of generalService.selectedModel.colors" [value]="color.code">
+          {{ color.code }}
+        </option>
+      </select>
+    </ng-container>
+  </form>
+</ng-container>
