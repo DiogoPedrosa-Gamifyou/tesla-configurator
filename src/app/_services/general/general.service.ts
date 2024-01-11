@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Model, ModelColor } from '../../_models/models.model';
+import { Model, ModelColor, ModelOptionsConfig } from '../../_models/models.model';
 
 import { Step } from '../../_models/steps.model';
 
@@ -36,8 +36,8 @@ export class GeneralService {
     return this.stepsSubject.value;
   }
 
-  public trackByFn<T>(item: T): string {
-    return (item as Model).code || (item as ModelColor).code;
+  public trackByFn<T>(item: T): string | number {
+    return (item as Model).code || (item as ModelColor).code || (item as ModelOptionsConfig).id;
   }
 
   public checkStepValidity(stepIndex: number): boolean {

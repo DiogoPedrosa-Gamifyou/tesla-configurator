@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { GeneralService } from '../../_services/generalService/general.service';
+import { GeneralService } from '../../_services/general/general.service';
 import { Subject, takeUntil } from 'rxjs';
 import { ModelsService } from '../../_services/models/models.service';
 
@@ -40,6 +40,21 @@ export class Step2Component implements OnInit, OnDestroy {
   }
 
   private subscribeInputChanges(): void {
+    this.form.controls['config'].valueChanges.pipe(takeUntil(this.destroy)).subscribe((value) => {
+      this.modelsService.setSelectedModelConfig(value);
+
+      this.modelsService.setSelectedModelYoke(this.form.controls['yoke'].value ?? false);
+      this.modelsService.setSelectedModelTowHitch(this.form.controls['towHitch'].value ?? false);
+    });
+
+    this.form.controls['yoke'].valueChanges.pipe(takeUntil(this.destroy)).subscribe((value) => {
+      this.modelsService.setSelectedModelYoke(value ?? false);
+    });
+
+    this.form.controls['towHitch'].valueChanges.pipe(takeUntil(this.destroy)).subscribe((value) => {
+      this.modelsService.setSelectedModelTowHitch(value ?? false);
+    });
+
     this.form.statusChanges.pipe(takeUntil(this.destroy)).subscribe(() => {
       this.validateStep();
     });

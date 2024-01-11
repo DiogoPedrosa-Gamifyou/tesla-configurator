@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, catchError, BehaviorSubject } from 'rxjs';
 import { ApiService } from '../api/api.service';
-import { Model, ModelColor, ModelOptions } from '../../_models/models.model';
+import { Model, ModelColor, ModelOptions, SelectedOptionConfig } from '../../_models/models.model';
 
 
 @Injectable({
@@ -12,11 +12,13 @@ export class ModelsService {
   private teslaModelsSubject: BehaviorSubject<Array<Model>> = new BehaviorSubject<Array<Model>>([]);
   public teslaModels$: Observable<Array<Model>> = this.teslaModelsSubject.asObservable();
 
-  private teslaModelOptionsSubject: BehaviorSubject<Array<ModelOptions>> = new BehaviorSubject<Array<ModelOptions>>([]);
-  public teslaModelOptions$: Observable<Array<ModelOptions>> = this.teslaModelOptionsSubject.asObservable();
+  private teslaModelOptionsSubject: BehaviorSubject<ModelOptions> = new BehaviorSubject<ModelOptions>({ configs: [], towHitch: false, yoke: false});
+  public teslaModelOptions$: Observable<ModelOptions> = this.teslaModelOptionsSubject.asObservable();
 
   private selectedTeslaModel: Model | undefined;
   private selectedTeslaModelColor: ModelColor | undefined;
+
+  public selectedModelConfig: SelectedOptionConfig | undefined;
 
   constructor(
     private apiService: ApiService
@@ -36,9 +38,9 @@ export class ModelsService {
     );
   }
 
-  public getOptions(): Observable<Array<ModelOptions>> {
-    return this.apiService.get<Array<ModelOptions>>(`/options/${this.selectedModel?.code}`).pipe(
-      map((response: Array<ModelOptions>) => {
+  public getOptions(): Observable<ModelOptions> {
+    return this.apiService.get<ModelOptions>(`/options/${this.selectedModel?.code}`).pipe(
+      map((response: ModelOptions) => {
 
         this.teslaModelOptionsSubject.next(response);
 
@@ -54,7 +56,7 @@ export class ModelsService {
     return this.teslaModelsSubject.value;
   }
 
-  public get modelOptions(): Array<ModelOptions> {
+  public get modelOptions(): ModelOptions {
     return this.teslaModelOptionsSubject.value;
   }
 
@@ -73,4 +75,26 @@ export class ModelsService {
   public setSelectedModelColor(selectedCode: string | null): void {
     this.selectedTeslaModelColor = this.selectedTeslaModel?.colors.find(color => color.code === selectedCode) ?? this.selectedTeslaModel?.colors[0];
   }
+
+  public setSelectedModelConfig(id: string | null): void {
+    debugger;
+    const selectedConfig = this.teslaModelOptionsSubject.value.configs.find(config => config.id + '' === id);
+
+    this.selectedModelConfig = selectedConfig ? {
+      config: selectedConfig,
+      towHitch: false,
+      yoke: false
+    } : undefined;
+  }
+
+  public setSelectedModelYoke(value: boolean): void {
+    if (this.selectedModelConfig)
+      this.selectedModelConfig.yoke = value;
+  }
+
+  public setSelectedModelTowHitch(value: boolean): void {
+    if (this.selectedModelConfig)
+      this.selectedModelConfig.towHitch = value;
+  }
+
 }

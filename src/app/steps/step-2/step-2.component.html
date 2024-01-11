@@ -1,5 +1,31 @@
 <h1>Step 2: Select your config and options</h1>
 
 <ng-container *ngIf="modelsService.teslaModelOptions$ | async as modelOptions">
-  <!-- TODO -->
+  <form [formGroup]="form">
+    <label>Config:</label>
+    <select [formControlName]="'config'" [attr.ID]="'configSelect'">
+      <option [value]="''" selected>Choose a config</option>
+      <option *ngFor="let config of modelOptions.configs; trackBy: generalService.trackByFn" [value]="config.id">
+        {{ config.description }}
+      </option>
+    </select>
+
+    <p *ngIf="modelsService.selectedModelConfig">
+      Range: {{ modelsService.selectedModelConfig.config.range }} miles -
+      Max speed: {{ modelsService.selectedModelConfig.config.speed }} -
+      Cost: {{ modelsService.selectedModelConfig.config.price | currency}}
+    </p>
+
+    <br *ngIf="!modelsService.selectedModelConfig">
+    <ng-container *ngIf="modelOptions.towHitch">
+      <label>Tow hitch?</label>
+      <input type="checkbox" id="includeTow" [attr.ID]="'includeTow'" [formControlName]="'towHitch'">
+    </ng-container>
+
+    <br *ngIf="modelOptions.towHitch">
+    <ng-container *ngIf="modelOptions.yoke">
+      <label>Yoke steering wheel?</label>
+      <input type="checkbox" id="includeYoke" [attr.ID]="'includeYoke'" [formControlName]="'yoke'">
+    </ng-container>
+  </form>
 </ng-container>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from '../../_services/generalService/general.service';
+import { GeneralService } from '../../_services/general/general.service';
 import { ReactiveFormsModule, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { ModelsService } from '../../_services/models/models.service';

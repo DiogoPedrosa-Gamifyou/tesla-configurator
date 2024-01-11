@@ -23,3 +23,9 @@ export interface ModelOptionsConfig {
   speed: number;
   price: number;
 }
+
+export interface SelectedOptionConfig {
+  config: ModelOptionsConfig,
+  towHitch: boolean;
+  yoke: boolean;
+}
