@@ -2,7 +2,7 @@
 
 <router-outlet></router-outlet>
 
-<img *ngIf="generalService.selectedModel && generalService.selectedModelColor"
-  [src]="'https://interstate21.com/tesla-app/images/'+ generalService.selectedModel.code + '/' + generalService.selectedModelColor.code + '.jpg'"
+<img *ngIf="modelsService.selectedModel && modelsService.selectedModelColor"
+  [src]="'https://interstate21.com/tesla-app/images/'+ modelsService.selectedModel.code + '/' + modelsService.selectedModelColor.code + '.jpg'"
   alt="Selected tesla model image"
   [ngStyle]="{'width' : '100%'}">

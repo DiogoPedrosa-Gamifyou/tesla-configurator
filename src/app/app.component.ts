@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { GeneralService } from './_services/generalService/general.service';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ModelsService } from './_services/models/models.service';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 export class AppComponent implements OnInit {
 
   constructor(
-    public generalService: GeneralService
+    public generalService: GeneralService,
+    public modelsService: ModelsService,
     ) {}
 
   ngOnInit(): void {
-    this.generalService.getModels().subscribe();
+    this.modelsService.getModels().subscribe();
   }
 }

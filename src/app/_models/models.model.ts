@@ -11,5 +11,15 @@ export interface ModelColor {
 }
 
 export interface ModelOptions {
-  // TODO
+  configs: Array<ModelOptionsConfig>;
+  towHitch: boolean;
+  yoke: boolean;
+}
+
+export interface ModelOptionsConfig {
+  id: number;
+  description: string;
+  range: number;
+  speed: number;
+  price: number;
 }

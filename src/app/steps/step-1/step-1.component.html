@@ -1,21 +1,21 @@
 <h1>Step 1: Choose your Model and color</h1>
 
-<ng-container *ngIf="generalService.teslaModels$ | async as models">
+<ng-container *ngIf="modelsService.teslaModels$ | async as models">
   <form [formGroup]="form">
     <label>Model:</label>
     <select [formControlName]="'model'" [attr.ID]="'modelSelect'">
       <option [value]="''" selected>Choose a model</option>
-      <option *ngFor="let model of models" [value]="model.code">
-        {{ model.code }}
+      <option *ngFor="let model of models; trackBy: generalService.trackByFn" [value]="model.code">
+        {{ model.description }}
       </option>
     </select>
 
-    <ng-container *ngIf="generalService.selectedModel">
+    <ng-container *ngIf="modelsService.selectedModel">
       <label>Color:</label>
       <select [formControlName]="'color'" placeholder="Choose a color" [attr.ID]="'colorSelect'">
         <option [value]="''" selected>Choose a color</option>
-        <option *ngFor="let color of generalService.selectedModel.colors" [value]="color.code">
-          {{ color.code }}
+        <option *ngFor="let color of modelsService.selectedModel.colors; trackBy: generalService.trackByFn" [value]="color.code">
+          {{ color.description }}
         </option>
       </select>
     </ng-container>
