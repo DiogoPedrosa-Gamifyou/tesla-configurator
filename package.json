@@ -1,6 +1,7 @@
 {
   "name": "tesla-configurator",
   "version": "0.0.0",
+  "homepage": "https://diogopedrosa-gamifyou.github.io/tesla-configurator",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
