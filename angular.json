@@ -33,8 +33,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "baseHref": "/tesla-configurator/"
+            "scripts": []
           },
           "configurations": {
             "production": {
