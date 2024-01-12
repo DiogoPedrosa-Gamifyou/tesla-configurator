@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/tesla-configurator",
+            "outputPath": "dist/tesla-configurator/browser",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -50,7 +50,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/dist/tesla-configurator/browser"
+              "baseHref": "/tesla-configurator/"
             },
             "development": {
               "optimization": false,
