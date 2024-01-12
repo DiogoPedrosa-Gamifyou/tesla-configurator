@@ -25,7 +25,7 @@ export class ModelsService {
   ) { }
 
   public getModels(): Observable<Array<Model>> {
-    return this.apiService.get<Array<Model>>('/models').pipe(
+    return this.apiService.get<Array<Model>>('/tesla-configurator/models').pipe(
       map((response: Array<Model>) => {
 
         this.teslaModelsSubject.next(response);
@@ -39,7 +39,7 @@ export class ModelsService {
   }
 
   public getOptions(): Observable<ModelOptions> {
-    return this.apiService.get<ModelOptions>(`/options/${this.selectedModel?.code}`).pipe(
+    return this.apiService.get<ModelOptions>(`/tesla-configurator/options/${this.selectedModel?.code}`).pipe(
       map((response: ModelOptions) => {
 
         this.teslaModelOptionsSubject.next(response);
