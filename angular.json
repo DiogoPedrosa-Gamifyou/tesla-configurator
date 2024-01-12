@@ -50,7 +50,7 @@
                 }
               ],
               "outputHashing": "all",
-            "baseHref": "dist/tesla-configurator/browser/"
+            "baseHref": "/tesla-configurator/browser/"
             },
             "development": {
               "optimization": false,
