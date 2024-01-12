@@ -114,5 +114,9 @@ const handlers = [
   }),
 ];
 export const worker = setupWorker(...handlers);
-worker.start();
+worker.start({
+  serviceWorker: {
+    url: './tesla-configurator/'
+  }
+});
 
