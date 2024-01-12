@@ -3,6 +3,7 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { setupWorker } from 'msw/browser';
 import {http, HttpResponse} from 'msw';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
@@ -114,9 +115,9 @@ const handlers = [
   }),
 ];
 export const worker = setupWorker(...handlers);
+// worker.start();
 worker.start({
   serviceWorker: {
-    url: '/tesla-configurator/dist/tesla-configurator/browser/mockServiceWorker.js'
+    url: environment.mockServiceWorkerUrl
   }
 });
-
