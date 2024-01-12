@@ -33,7 +33,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: Step1Component
+    redirectTo: 'step1'
   },
 ];
 
