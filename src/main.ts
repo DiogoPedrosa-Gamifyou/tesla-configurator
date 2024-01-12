@@ -116,7 +116,7 @@ const handlers = [
 export const worker = setupWorker(...handlers);
 worker.start({
   serviceWorker: {
-    url: './tesla-configurator/'
+    url: '/tesla-configurator/dist/tesla-configurator/browser/mockServiceWorker.js'
   }
 });
 
