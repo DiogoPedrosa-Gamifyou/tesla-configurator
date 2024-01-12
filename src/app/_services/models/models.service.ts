@@ -77,7 +77,6 @@ export class ModelsService {
   }
 
   public setSelectedModelConfig(id: string | null): void {
-    debugger;
     const selectedConfig = this.teslaModelOptionsSubject.value.configs.find(config => config.id + '' === id);
 
     this.selectedModelConfig = selectedConfig ? {
@@ -97,4 +96,7 @@ export class ModelsService {
       this.selectedModelConfig.towHitch = value;
   }
 
+  public checkAvailableConfigs(): boolean {
+    return this.teslaModelOptionsSubject.value.configs.find(config => config.id === this.selectedModelConfig?.config.id) ? true : false;
+  }
 }

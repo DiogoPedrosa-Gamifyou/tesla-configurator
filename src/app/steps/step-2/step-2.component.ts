@@ -29,9 +29,17 @@ export class Step2Component implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.modelsService.getOptions().pipe(takeUntil(this.destroy)).subscribe();
+    this.modelsService.getOptions().pipe(takeUntil(this.destroy)).subscribe(() => {
+      this.subscribeInputChanges();
 
-    this.subscribeInputChanges();
+      if (this.modelsService.selectedModelConfig?.config.id && this.modelsService.checkAvailableConfigs()) {
+        this.form.controls['config'].setValue(this.modelsService.selectedModelConfig?.config.id.toString());
+      } else {
+        this.form.controls['config'].setValue('');
+      }
+      this.form.controls['yoke'].setValue(this.modelsService.selectedModelConfig?.yoke ?? false);
+      this.form.controls['towHitch'].setValue(this.modelsService.selectedModelConfig?.towHitch ?? false);
+    });
   }
 
   ngOnDestroy(): void {

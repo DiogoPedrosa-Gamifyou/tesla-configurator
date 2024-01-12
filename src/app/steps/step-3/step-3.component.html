@@ -1,1 +1,40 @@
-<p>step-3 works!</p>
+<h1>Step 3: Summary</h1>
+
+<ng-container *ngIf="modelsService.selectedModel && modelsService.selectedModelConfig && modelsService.selectedModelColor">
+  <br>
+  <h2>Your Tesla {{ modelsService.selectedModel.description | titlecase }}</h2>
+  <br>
+
+  <p>
+    <span><b>{{ modelsService.selectedModelConfig.config.description }}</b></span>
+    <span>{{ modelsService.selectedModelConfig.config.price | currency }}</span>
+  </p>
+  <p>
+    Range: {{ modelsService.selectedModelConfig.config.range }} miles -
+    Max speed: {{ modelsService.selectedModelConfig.config.speed }}
+  </p>
+
+  <p>
+    <span><b>{{ modelsService.selectedModelColor.description }} Color</b></span>
+    <span>{{ modelsService.selectedModelColor.price | currency }}</span>
+  </p>
+
+  <p *ngIf="modelsService.selectedModelConfig.towHitch">
+    <span><b>Tow Hitch Package</b></span>
+    <span>{{ towHitchCost | currency }}</span>
+  </p>
+
+  <p *ngIf="modelsService.selectedModelConfig.yoke">
+    <span><b>Yoke Package</b></span>
+    <span>{{ yokeCost | currency }}</span>
+  </p>
+
+  <hr>
+  <p>
+    <span><b>TOTAL COST:</b></span>
+    <span>{{ modelsService.selectedModelConfig.config.price + modelsService.selectedModelColor.price
+      + (modelsService.selectedModelConfig.towHitch ? towHitchCost : 0)
+      + (modelsService.selectedModelConfig.yoke ? yokeCost : 0 ) | currency }}</span>
+  </p>
+  <hr>
+</ng-container>
