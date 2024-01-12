@@ -40,6 +40,6 @@
     "typescript": "~5.2.2"
   },
   "msw": {
-    "workerDirectory": "src"
+    "workerDirectory": "src/tesla-configurator"
   }
 }

@@ -117,7 +117,7 @@ export const worker = setupWorker(...handlers);
 worker.start({
   serviceWorker: {
     options: {
-      scope: "/tesla-configurator",
+      scope: "/tesla-configurator"
     },
   },
 });
