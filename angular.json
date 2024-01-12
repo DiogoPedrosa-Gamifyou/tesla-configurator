@@ -28,7 +28,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/tesla-configurator/mockServiceWorker.js"
+              "src/mockServiceWorker.js"
             ],
             "styles": [
               "src/styles.scss"
